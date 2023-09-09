@@ -3,19 +3,22 @@ package bealby.tom.AuctionSniper.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
 
 @RestController
 public class SniperController {
 	
 	private String status = "NotStartedBidding";
-	
+	private RestTemplate restTemplate = new RestTemplate();
+
 	@RequestMapping("/startBidding")
 	public ResponseEntity<String> startBidding() {
-		// TODO make request of Auction to start bidding
 		System.out.println("Starting to bid");
 		status = "biddingStarted";
-		return ResponseEntity.ok("Started bidding");
+		// tell Action that I want to join it
+		return sendRequest();
 	}
 	
 	@RequestMapping("/receiveAuctionMessage")
@@ -29,6 +32,11 @@ public class SniperController {
 	public ResponseEntity<String> getStatus() {
 		System.out.println("Received a request to show my status");
 		return ResponseEntity.ok("current status:" + status);
+	}
+
+	private ResponseEntity<String> sendRequest() throws HttpClientErrorException {
+	    final String url = "http://localhost:8093/receiveJoinRequest";
+		return restTemplate.getForEntity(url, String.class);
 	}
 
 }
