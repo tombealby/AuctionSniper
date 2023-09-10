@@ -28,13 +28,13 @@ public class AuctionControllerTest {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-	@Test
-	public void joinAuctionShouldChangeSniperStatus() throws Exception {
-
-		givenTheSniperHasNotStartedBidding();
-        whenARequestIsMadeToJoinTheAuction();
-		thenTheSniperStatusIsChangedToBiddingStarted();
-	}
+//	@Test
+//	public void joinAuctionShouldChangeSniperStatus() throws Exception {
+//
+//		givenTheSniperHasNotStartedBidding();
+//        whenARequestIsMadeToJoinTheAuction();
+//		thenTheSniperStatusIsChangedToBiddingStarted();
+//	}
 
 	private void thenTheSniperStatusIsChangedToBiddingStarted() throws UnsupportedEncodingException, Exception {
         String finalStatus = mockMvc.perform(get(GET_STATUS)

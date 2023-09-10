@@ -21,8 +21,8 @@ public class SniperController {
 		final ResponseEntity<String> responseFromAuction = requestToJoinTheAuction();
 		if (responseFromAuction.getStatusCode().equals(HttpStatus.OK)) {
 			status = "biddingStarted";
-			final String responseMessage = "Received a message back from the auction, so take that to mean that I"
-					+ " have joined the auction.";
+			final String responseMessage = "Received an ok response from my request to join the auction, "
+					+ "so take that to mean that I have joined the auction.";
 			System.out.println(responseMessage);
 			return ResponseEntity.ok(responseMessage);
 		} else {
@@ -32,14 +32,15 @@ public class SniperController {
 	
 	@RequestMapping("/receiveAuctionMessage")
 	public ResponseEntity<String> receiveAuctionMessage() {
-		System.out.println("Received a message from the auction");
+		System.out.println("Received a message from the auction. I take that to mean that the auction has"
+				+ " closed and that I have lost.");
 		status = "Lost";
 		return ResponseEntity.ok("Received a message from the auction");
 	}
 	
 	@RequestMapping("/getStatus")
 	public ResponseEntity<String> getStatus() {
-		System.out.println("Received a request to show my status");
+		System.out.println("Received a request to show my status. My current status is:" + status);
 		return ResponseEntity.ok("current status:" + status);
 	}
 
