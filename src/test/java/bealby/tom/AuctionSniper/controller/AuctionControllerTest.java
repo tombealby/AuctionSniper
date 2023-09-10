@@ -53,7 +53,8 @@ public class AuctionControllerTest {
                 .andReturn().getResponse().getContentAsString();
         System.out.println("Content:" + content);
 
-        assertEquals("Received a request to join the auction" , content);
+        assertEquals("Received a message back from the auction, so take that to mean that I "
+        		+ "have joined the auction." , content);
 	}
 
 	private void givenTheSniperHasNotStartedBidding() throws UnsupportedEncodingException, Exception {
