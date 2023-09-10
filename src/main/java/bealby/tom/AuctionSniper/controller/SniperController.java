@@ -33,7 +33,7 @@ public class SniperController {
 	@RequestMapping("/receiveAuctionMessage")
 	public ResponseEntity<String> receiveAuctionMessage() {
 		System.out.println("Received a message from the auction");
-		status = "auctionClosed";
+		status = "Lost";
 		return ResponseEntity.ok("Received a message from the auction");
 	}
 	
