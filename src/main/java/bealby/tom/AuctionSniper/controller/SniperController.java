@@ -62,7 +62,8 @@ public class SniperController {
 	}
 
 	private void makeBid(int bidThatINeedToMake) {
-		// TODO make bid to auction
+		final String url = "http://localhost:8093/receiveBid?bid=" + bidThatINeedToMake;
+		restTemplate.getForEntity(url, String.class);
 		this.myLatestBid =  bidThatINeedToMake;
 	}
 
