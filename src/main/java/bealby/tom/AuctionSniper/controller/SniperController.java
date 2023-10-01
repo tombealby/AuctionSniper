@@ -53,9 +53,9 @@ public class SniperController {
 
 	@RequestMapping("/priceNotification")
 	public ResponseEntity<String> receivePriceNotification(@RequestParam("currentPrice") Integer currentPrice,
-			@RequestParam("priceIncrement") Integer priceIncrement) {
+			@RequestParam("priceIncrement") Integer priceIncrement, @RequestParam("winningBidder") String winningBidder) {
 		System.out.println("Received a price notification from the auction. Current price:" + currentPrice
-				+ ", price increment:" + priceIncrement);
+				+ ", price increment:" + priceIncrement + " with winning bidder \"" + winningBidder + "\"");
 		final int bidThatINeedToMake = currentPrice + priceIncrement;
 		makeBid(bidThatINeedToMake);
 		return ResponseEntity.ok("");
