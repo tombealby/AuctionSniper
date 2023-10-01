@@ -3,6 +3,7 @@ package bealby.tom.AuctionSniper.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -47,6 +48,14 @@ public class SniperController {
 	private ResponseEntity<String> requestToJoinTheAuction() throws HttpClientErrorException {
 	    final String url = "http://localhost:8093/receiveJoinRequest";
 		return restTemplate.getForEntity(url, String.class);
+	}
+
+	@RequestMapping("/priceNotification")
+	public ResponseEntity<String> receivePriceNotification(@RequestParam("currentPrice") Integer currentPrice,
+			@RequestParam("priceIncrement") Integer priceIncrement) {
+		System.out.println("Received a price notification from the auction. Current price:" + currentPrice
+				+ ", price increment:" + priceIncrement);
+		return ResponseEntity.ok("");
 	}
 
 }
