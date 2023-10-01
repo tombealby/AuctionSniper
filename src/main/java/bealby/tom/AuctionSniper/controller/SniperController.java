@@ -62,7 +62,7 @@ public class SniperController {
 	}
 
 	private void makeBid(int bidThatINeedToMake) {
-		final String url = "http://localhost:8093/receiveBid?bid=" + bidThatINeedToMake;
+		final String url = "http://localhost:8093/receiveBid?bid=" + bidThatINeedToMake + "&bidderId=sniper";
 		restTemplate.getForEntity(url, String.class);
 		this.myLatestBid =  bidThatINeedToMake;
 	}
