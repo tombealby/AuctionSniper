@@ -14,6 +14,7 @@ public class SniperController {
 	
 	private String status = "NotStartedBidding";
 	private RestTemplate restTemplate = new RestTemplate();
+	private int myLatestBid;
 
 	@RequestMapping("/startBidding")
 	public ResponseEntity<String> startBidding() {
@@ -55,7 +56,20 @@ public class SniperController {
 			@RequestParam("priceIncrement") Integer priceIncrement) {
 		System.out.println("Received a price notification from the auction. Current price:" + currentPrice
 				+ ", price increment:" + priceIncrement);
+		final int bidThatINeedToMake = currentPrice + priceIncrement;
+		makeBid(bidThatINeedToMake);
 		return ResponseEntity.ok("");
+	}
+
+	private void makeBid(int bidThatINeedToMake) {
+		// TODO make bid to auction
+		this.myLatestBid =  bidThatINeedToMake;
+	}
+
+	@RequestMapping("/getLatestBid")
+	public ResponseEntity<String> getLatestBid() {
+		System.out.println("Received a request to show my latest bid. My latest bid is:" + myLatestBid);
+		return ResponseEntity.ok("My latest bid:" + myLatestBid);
 	}
 
 }
