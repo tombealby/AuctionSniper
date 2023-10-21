@@ -56,12 +56,24 @@ public class SniperController {
 			@RequestParam("priceIncrement") Integer priceIncrement, @RequestParam("winningBidder") String winningBidder) {
 		System.out.println("Received a price notification from the auction. Current price:" + currentPrice
 				+ ", price increment:" + priceIncrement + " with winning bidder \"" + winningBidder + "\"");
-		final int bidThatINeedToMake = currentPrice + priceIncrement;
-		makeBid(bidThatINeedToMake);
-		return ResponseEntity.ok("");
+		makeBidInNewThread(currentPrice, priceIncrement);
+		return ResponseEntity.ok("Thanks, I got your price notification of current price " + currentPrice +
+				" and price increment " + priceIncrement);
 	}
 
-	private void makeBid(int bidThatINeedToMake) {
+	private void makeBidInNewThread(final Integer currentPrice, final Integer priceIncrement) {
+
+		final Runnable task = new Runnable() {
+			@Override
+			public void run() {
+				makeBid(currentPrice, priceIncrement);
+			}
+		};
+		new Thread(task).start();
+	}
+
+	private void makeBid(final Integer currentPrice, final Integer priceIncrement) {
+		final int bidThatINeedToMake = currentPrice + priceIncrement;
 		final String url = "http://localhost:8093/receiveBid?bid=" + bidThatINeedToMake + "&bidderId=sniper";
 		restTemplate.getForEntity(url, String.class);
 		this.myLatestBid =  bidThatINeedToMake;
