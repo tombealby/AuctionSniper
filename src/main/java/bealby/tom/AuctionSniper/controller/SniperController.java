@@ -52,7 +52,7 @@ public class SniperController {
 	}
 
 	private ResponseEntity<String> requestToJoinTheAuction() throws HttpClientErrorException {
-	    final String url = "http://localhost:8093/receiveJoinRequest";
+	    final String url = "http://localhost:8093/receiveJoinRequest?bidder=sniper";
 		return restTemplate.getForEntity(url, String.class);
 	}
 
